@@ -44,8 +44,9 @@ public class HomePage extends Page {
 	@CacheLookup
 	public WebElement submit;
 
-	public WebElement getMood(Mood moon) {
-		return driver.findElement(By.xpath("//div[starts-with(.,'ÐšÐ°Ðº Ð²Ð°ÑˆÐµ Ð½Ð°Ñ�Ñ‚Ñ€Ð¾ÐµÐ½Ð¸Ðµ ? :)')]"));
+	public WebElement getMood(Mood mood) {
+		return driver.findElement(By.xpath("//div[@class='exportLabelWrapper' and div/div/span[starts-with(.,'"
+				+ mood.getValue() + "')]]/div[@role='checkbox']"));
 	}
 
 	public HomePage(WebDriver webDriver) {
