@@ -24,6 +24,10 @@ public class HomePage extends Page {
 	@CacheLookup
 	public WebElement emailErrorMessage;
 
+	@FindBy(id = "i.err.1236342938")
+	@CacheLookup
+	public WebElement dateErrorMessage;
+
 	@FindBy(xpath = "//input[@type='date']")
 	@CacheLookup
 	public WebElement date;
@@ -41,7 +45,7 @@ public class HomePage extends Page {
 	public WebElement submit;
 
 	public WebElement getMood(Mood moon) {
-		return driver.findElement(By.xpath("//div[starts-with(.,'Как ваше настроение ? :)')]"));
+		return driver.findElement(By.xpath("//div[starts-with(.,'ÐšÐ°Ðº Ð²Ð°ÑˆÐµ Ð½Ð°Ñ�Ñ‚Ñ€Ð¾ÐµÐ½Ð¸Ðµ ? :)')]"));
 	}
 
 	public HomePage(WebDriver webDriver) {

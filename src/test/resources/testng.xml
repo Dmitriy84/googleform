@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Tests" verbose="5">
-  <test name="Test1">
-    <classes>
-      <class name="com.tests.SampleTestNgTest"/>
-    </classes>
-  </test>  
+	<listeners>
+		<listener class-name="com.tests.utils.ScreenshotListener" />
+	</listeners>
+	<test name="Test1">
+		<classes>
+			<class name="com.tests.SampleTestNgTest" />
+		</classes>
+	</test>
 </suite>
