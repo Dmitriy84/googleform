@@ -76,19 +76,20 @@ public class SampleTestNgTest extends TestNgTestBase {
 	}
 
 	@Test
-	public void testForm() {
+	public void testForm() throws InterruptedException {
 		// TODO
 		fillForm(DataFactory.getCommon().setMoodSuper(true).setMoodBad(true));
 	}
 
 	// TODO check required fields
 
-	private void fillForm(FormData data) {
+	// TODO test all default values
+
+	private void fillForm(FormData data) throws InterruptedException {
 		homepage.email.sendKeys(data.getEmail());
 		homepage.date.sendKeys(String.valueOf(data.getDate()));
 		homepage.name.sendKeys(data.getName());
-		//TODO select
-		homepage.sex.sendKeys(data.getSex().toString());
+		homepage.selectSex(data.getSex());
 
 		if (data.isMoodSuper())
 			homepage.getMood(Mood.Super).click();

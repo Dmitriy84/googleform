@@ -7,7 +7,7 @@ public enum Mood {
 		value = name;
 	}
 
-	public String getValue() {
+	public String toString() {
 		return value;
 	}
 

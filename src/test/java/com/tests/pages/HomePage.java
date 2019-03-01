@@ -5,8 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.tests.data.Mood;
+import com.tests.data.Sex;
 
 /**
  * Sample page
@@ -36,20 +38,27 @@ public class HomePage extends Page {
 	@CacheLookup
 	public WebElement name;
 
-	@FindBy(xpath = "//content[@class='quantumWizMenuPaperselectContent exportContent']")
+	@FindBy(xpath = "//div[@role='presentation' and @jsname='LgbsSe']/div")
 	@CacheLookup
-	public WebElement sex;
+	public WebElement sexElement;
 
 	@FindBy(xpath = "//span[text()='Submit']")
 	@CacheLookup
 	public WebElement submit;
 
 	public WebElement getMood(Mood mood) {
-		return driver.findElement(By.xpath("//div[@class='exportLabelWrapper' and div/div/span[starts-with(.,'"
-				+ mood.getValue() + "')]]/div[@role='checkbox']"));
+		return driver.findElement(By.xpath("//div[@class='exportLabelWrapper' and div/div/span[starts-with(.,'" + mood
+				+ "')]]/div[@role='checkbox']"));
 	}
 
 	public HomePage(WebDriver webDriver) {
 		super(webDriver);
+	}
+
+	public void selectSex(Sex sex) {
+		sexElement.click();
+		WebDriverWait wait = new WebDriverWait(driver, 10);
+		wait.until(d -> d.findElement(
+				By.xpath("//div[contains(@class,'exportSelectPopup') and div/content[text()='" + sex + "']]"))).click();
 	}
 }
