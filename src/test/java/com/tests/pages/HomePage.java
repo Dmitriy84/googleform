@@ -30,6 +30,18 @@ public class HomePage extends Page {
 	@CacheLookup
 	public WebElement dateErrorMessage;
 
+	@FindBy(id = "i.err.1645109785")
+	@CacheLookup
+	public WebElement nameErrorMessage;
+
+	@FindBy(id = "i.err.454110266")
+	@CacheLookup
+	public WebElement sexErrorMessage;
+
+	@FindBy(id = "i.err.1001784558")
+	@CacheLookup
+	public WebElement moodErrorMessage;
+
 	@FindBy(xpath = "//input[@type='date']")
 	@CacheLookup
 	public WebElement date;
@@ -42,7 +54,7 @@ public class HomePage extends Page {
 	@CacheLookup
 	public WebElement sexElement;
 
-	@FindBy(xpath = "//span[text()='Submit']")
+	@FindBy(xpath = "//span[text()='Надіслати']")
 	@CacheLookup
 	public WebElement submit;
 

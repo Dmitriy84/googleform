@@ -17,6 +17,10 @@ public class SampleTestNgTest extends TestNgTestBase {
 	private static final String WrongEmailAssertMessage = "Unexpected email error message";
 	private static final String WrongEmailMessage = "Потрібна дійсна електронна адреса";
 	private static final String WrongNameAssertMessage = "Unexpected name error message";
+	private static final String WrongSexAssertMessage = "Unexpected sex error message";
+	private static final String WrongMoodAssertMessage = "Unexpected mood error message";
+	private static final String FieldRequiredErrorMessage = "Відповідь на це запитання обов’язкова";
+
 	private HomePage homepage;
 
 	@BeforeMethod
@@ -76,16 +80,25 @@ public class SampleTestNgTest extends TestNgTestBase {
 	}
 
 	@Test
-	public void testForm() throws InterruptedException {
+	public void testForm() {
 		// TODO
 		fillForm(DataFactory.getCommon().setMoodSuper(true).setMoodBad(true));
 	}
 
-	// TODO check required fields
+	@Test
+	public void checkAllRequiredFields() {
+		homepage.submit.click();
+
+		Assert.assertEquals(homepage.emailErrorMessage.getText(), FieldRequiredErrorMessage, WrongEmailAssertMessage);
+		Assert.assertEquals(homepage.dateErrorMessage.getText(), FieldRequiredErrorMessage, WrongDateAssertMessage);
+		Assert.assertEquals(homepage.nameErrorMessage.getText(), FieldRequiredErrorMessage, WrongNameAssertMessage);
+		Assert.assertEquals(homepage.sexErrorMessage.getText(), FieldRequiredErrorMessage, WrongSexAssertMessage);
+		Assert.assertEquals(homepage.moodErrorMessage.getText(), FieldRequiredErrorMessage, WrongMoodAssertMessage);
+	}
 
 	// TODO test all default values
 
-	private void fillForm(FormData data) throws InterruptedException {
+	private void fillForm(FormData data) {
 		homepage.email.sendKeys(data.getEmail());
 		homepage.date.sendKeys(String.valueOf(data.getDate()));
 		homepage.name.sendKeys(data.getName());
