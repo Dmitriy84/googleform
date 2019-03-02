@@ -1,9 +1,11 @@
 package com.tests.data;
 
+import com.tests.TestNgTestBase;
+
 public enum Sex {
-	Man("Мужской"), Woman("Женский");
-	Sex(String name) {
-		value = name;
+	Man, Woman;
+	Sex() {
+		value = TestNgTestBase.messages.getString("Sex." + name());
 	}
 
 	public String toString() {

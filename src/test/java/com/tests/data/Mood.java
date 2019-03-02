@@ -1,10 +1,11 @@
 package com.tests.data;
 
+import com.tests.TestNgTestBase;
+
 public enum Mood {
-	Super("Супер"), Good("Хорошо"), Normal("Нормально"), Satisfactorily("Удовлетворительно"), Bad("Плохо"),
-	Other("Інше:");
-	Mood(String name) {
-		value = name;
+	Super, Good, Normal, Satisfactorily, Bad, Other;
+	Mood() {
+		value = TestNgTestBase.messages.getString("Mood." + name());
 	}
 
 	public String toString() {

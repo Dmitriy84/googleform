@@ -7,6 +7,7 @@ import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.tests.TestNgTestBase;
 import com.tests.data.Mood;
 import com.tests.data.Sex;
 
@@ -14,9 +15,10 @@ import com.tests.data.Sex;
  * Sample page
  */
 public class HomePage extends Page {
-	@FindBy(xpath = "//div[text()='Форма регистрации']")
-	@CacheLookup
-	public WebElement title;
+	public WebElement getTitle() {
+		return driver
+				.findElement(By.xpath("//div[text()='" + TestNgTestBase.messages.getString("HomePage.Title") + "']"));
+	}
 
 	@FindBy(xpath = "//input[@type='email']")
 	@CacheLookup
@@ -54,9 +56,10 @@ public class HomePage extends Page {
 	@CacheLookup
 	public WebElement sexElement;
 
-	@FindBy(xpath = "//span[text()='Надіслати']")
-	@CacheLookup
-	public WebElement submit;
+	public WebElement getSubmit() {
+		return driver
+				.findElement(By.xpath("//span[text()='" + TestNgTestBase.messages.getString("HomePage.Submit") + "']"));
+	}
 
 	public WebElement getMood(Mood mood) {
 		return driver.findElement(By.xpath("//div[@class='exportLabelWrapper' and div/div/span[starts-with(.,'" + mood

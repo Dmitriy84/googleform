@@ -13,13 +13,10 @@ import com.tests.utils.StringUtils;
 
 public class SampleTestNgTest extends TestNgTestBase {
 	private static final String WrongDateAssertMessage = "Unexpected date error message";
-	private static final String WrongDateMessage = "Недійсна дата";
 	private static final String WrongEmailAssertMessage = "Unexpected email error message";
-	private static final String WrongEmailMessage = "Потрібна дійсна електронна адреса";
 	private static final String WrongNameAssertMessage = "Unexpected name error message";
 	private static final String WrongSexAssertMessage = "Unexpected sex error message";
 	private static final String WrongMoodAssertMessage = "Unexpected mood error message";
-	private static final String FieldRequiredErrorMessage = "Відповідь на це запитання обов’язкова";
 
 	private HomePage homepage;
 
@@ -32,28 +29,30 @@ public class SampleTestNgTest extends TestNgTestBase {
 	@Test
 	public void testWrongEmail() {
 		homepage.email.sendKeys(StringUtils.randomAlphaNumeric(20, null));
-		homepage.title.click();
-		Assert.assertEquals(homepage.emailErrorMessage.getText(), WrongEmailMessage, WrongEmailAssertMessage);
+		homepage.getTitle().click();
+		Assert.assertEquals(homepage.emailErrorMessage.getText(), messages.getString("WrongEmailMessage"),
+				WrongEmailAssertMessage);
 	}
 
 	@Test
 	public void testMaxCharactersEmail() {
 		homepage.email.sendKeys(StringUtils.randomAlphaNumeric(1000, null));
-		homepage.title.click();
-		Assert.assertEquals(homepage.emailErrorMessage.getText(), WrongEmailMessage, WrongEmailAssertMessage);
+		homepage.getTitle().click();
+		Assert.assertEquals(homepage.emailErrorMessage.getText(), messages.getString("WrongEmailMessage"),
+				WrongEmailAssertMessage);
 	}
 
 	@Test
 	public void testCorrectEmail() {
 		homepage.email.sendKeys("test@gmail.com");
-		homepage.title.click();
+		homepage.getTitle().click();
 		Assert.assertEquals(homepage.emailErrorMessage.getText(), "", WrongEmailAssertMessage);
 	}
 
 	@Test
 	public void testCorrectDate() {
 		homepage.date.sendKeys("12031984");
-		homepage.title.click();
+		homepage.getTitle().click();
 		Assert.assertEquals(homepage.date.getText(), "", WrongDateAssertMessage);
 	}
 
@@ -61,7 +60,7 @@ public class SampleTestNgTest extends TestNgTestBase {
 	@Test
 	public void testWrongDate() throws InterruptedException {
 		homepage.date.sendKeys("0000");
-		Assert.assertEquals(homepage.date.getText(), WrongDateMessage, WrongDateAssertMessage);
+		Assert.assertEquals(homepage.date.getText(), messages.getString("WrongDateMessage"), WrongDateAssertMessage);
 	}
 
 	@Test
@@ -75,7 +74,7 @@ public class SampleTestNgTest extends TestNgTestBase {
 	@Test
 	public void testCorrectName() {
 		homepage.name.sendKeys("12031984");
-		homepage.title.click();
+		homepage.getTitle().click();
 		Assert.assertEquals(homepage.name.getText(), "", WrongNameAssertMessage);
 	}
 
@@ -87,13 +86,18 @@ public class SampleTestNgTest extends TestNgTestBase {
 
 	@Test
 	public void checkAllRequiredFields() {
-		homepage.submit.click();
+		homepage.getSubmit().click();
 
-		Assert.assertEquals(homepage.emailErrorMessage.getText(), FieldRequiredErrorMessage, WrongEmailAssertMessage);
-		Assert.assertEquals(homepage.dateErrorMessage.getText(), FieldRequiredErrorMessage, WrongDateAssertMessage);
-		Assert.assertEquals(homepage.nameErrorMessage.getText(), FieldRequiredErrorMessage, WrongNameAssertMessage);
-		Assert.assertEquals(homepage.sexErrorMessage.getText(), FieldRequiredErrorMessage, WrongSexAssertMessage);
-		Assert.assertEquals(homepage.moodErrorMessage.getText(), FieldRequiredErrorMessage, WrongMoodAssertMessage);
+		Assert.assertEquals(homepage.emailErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
+				WrongEmailAssertMessage);
+		Assert.assertEquals(homepage.dateErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
+				WrongDateAssertMessage);
+		Assert.assertEquals(homepage.nameErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
+				WrongNameAssertMessage);
+		Assert.assertEquals(homepage.sexErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
+				WrongSexAssertMessage);
+		Assert.assertEquals(homepage.moodErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
+				WrongMoodAssertMessage);
 	}
 
 	// TODO test all default values

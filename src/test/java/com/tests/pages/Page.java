@@ -17,7 +17,7 @@ public abstract class Page {
 		this.driver = driver;
 	}
 
-	public String getTitle() {
+	public String getPageTitle() {
 		return driver.getTitle();
 	}
 }
