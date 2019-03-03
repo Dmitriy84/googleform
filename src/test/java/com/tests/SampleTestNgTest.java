@@ -3,6 +3,7 @@ package com.tests;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.tests.data.FormData;
@@ -61,7 +62,9 @@ public class SampleTestNgTest extends TestNgTestBase {
 	// TODO
 	@Test
 	public void testWrongDate() throws InterruptedException {
-		homepage.date.sendKeys("0000");
+		homepage.date.sendKeys("00000000");
+		Thread.sleep(1000);
+		homepage.date.sendKeys("0");
 		Assert.assertEquals(homepage.date.getText(), messages.getString("WrongDateMessage"), WrongDateAssertMessage);
 	}
 
@@ -80,11 +83,34 @@ public class SampleTestNgTest extends TestNgTestBase {
 		Assert.assertEquals(homepage.name.getText(), "", WrongNameAssertMessage);
 	}
 
-	// TODO remove this
+	@Test(dataProvider = "NotValidDates")
+	// Bugs
+	public void testNotValidDateYear(String set) {
+		homepage.date.sendKeys(set);
+		Assert.assertEquals(homepage.date.getText(), messages.getString("WrongDateMessage"), WrongDateAssertMessage);
+	}
+
+	@Test(dataProvider = "ValidDates")
+	public void testNotValidDateDay(String set, String expected) {
+		homepage.date.sendKeys(set);
+		Assert.assertEquals(homepage.date.getAttribute("data-initial-value"), expected, WrongDateAssertMessage);
+	}
+
+	@DataProvider
+	public Object[][] ValidDates() {
+		return new Object[][] { { "9301987", "1987-09-03" }, { "01321990", "1990-01-31" } };
+	}
+
+	@DataProvider
+	// Past and future
+	public Object[][] NotValidDates() {
+		return new Object[][] { { "01011000" }, { "020211111" } };
+	}
+
 	@Test
-	public void testForm() {
-		// TODO
+	public void testHappyPath() {
 		fillForm(DataFactory.getCommon().setMoodSuper(true).setMoodBad(true));
+		// TODO check thank you page
 	}
 
 	@Test
@@ -130,15 +156,18 @@ public class SampleTestNgTest extends TestNgTestBase {
 		homepage.name.sendKeys(data.getName());
 		homepage.selectSex(data.getSex());
 
-		if (data.isMoodSuper())
+		if (data.isMoodSuper() ^ homepage.getMood(Mood.Super).getAttribute("aria-checked").equalsIgnoreCase("true"))
 			homepage.getMood(Mood.Super).click();
-		if (data.isMoodGood())
+		if (data.isMoodGood() ^ homepage.getMood(Mood.Good).getAttribute("aria-checked").equalsIgnoreCase("true"))
 			homepage.getMood(Mood.Good).click();
-		if (data.isMoodNormal())
+		if (data.isMoodNormal() ^ homepage.getMood(Mood.Normal).getAttribute("aria-checked").equalsIgnoreCase("true"))
 			homepage.getMood(Mood.Normal).click();
-		if (data.isMoodSatisfactorily())
+		if (data.isMoodSatisfactorily()
+				^ homepage.getMood(Mood.Satisfactorily).getAttribute("aria-checked").equalsIgnoreCase("true"))
 			homepage.getMood(Mood.Satisfactorily).click();
-		if (data.isMoodBad())
+		if (data.isMoodBad() ^ homepage.getMood(Mood.Bad).getAttribute("aria-checked").equalsIgnoreCase("true"))
 			homepage.getMood(Mood.Bad).click();
+
+		// TODO set other
 	}
 }
