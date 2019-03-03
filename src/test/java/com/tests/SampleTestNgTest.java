@@ -12,6 +12,8 @@ import com.tests.utils.DataFactory;
 import com.tests.utils.StringUtils;
 
 public class SampleTestNgTest extends TestNgTestBase {
+	private static final String CHECKBOX_SHOULD_BE_UNCHECKED = "Checkbox should be unchecked";
+	private static final String FIELD_SHOULD_BE_EMPTY = "Field should be empty";
 	private static final String WrongDateAssertMessage = "Unexpected date error message";
 	private static final String WrongEmailAssertMessage = "Unexpected email error message";
 	private static final String WrongNameAssertMessage = "Unexpected name error message";
@@ -78,6 +80,7 @@ public class SampleTestNgTest extends TestNgTestBase {
 		Assert.assertEquals(homepage.name.getText(), "", WrongNameAssertMessage);
 	}
 
+	// TODO remove this
 	@Test
 	public void testForm() {
 		// TODO
@@ -85,22 +88,41 @@ public class SampleTestNgTest extends TestNgTestBase {
 	}
 
 	@Test
-	public void checkAllRequiredFields() {
+	public void testCheckAllRequiredFields() {
 		homepage.getSubmit().click();
 
-		Assert.assertEquals(homepage.emailErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
-				WrongEmailAssertMessage);
-		Assert.assertEquals(homepage.dateErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
-				WrongDateAssertMessage);
-		Assert.assertEquals(homepage.nameErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
-				WrongNameAssertMessage);
-		Assert.assertEquals(homepage.sexErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
-				WrongSexAssertMessage);
-		Assert.assertEquals(homepage.moodErrorMessage.getText(), messages.getString("FieldRequiredErrorMessage"),
-				WrongMoodAssertMessage);
+		String message = messages.getString("FieldRequiredErrorMessage");
+
+		Assert.assertEquals(homepage.emailErrorMessage.getText(), message, WrongEmailAssertMessage);
+		Assert.assertEquals(homepage.dateErrorMessage.getText(), message, WrongDateAssertMessage);
+		Assert.assertEquals(homepage.nameErrorMessage.getText(), message, WrongNameAssertMessage);
+		Assert.assertEquals(homepage.sexErrorMessage.getText(), message, WrongSexAssertMessage);
+		Assert.assertEquals(homepage.moodErrorMessage.getText(), message, WrongMoodAssertMessage);
 	}
 
-	// TODO test all default values
+	@Test
+	public void testCheckAllDefaultValues() {
+		Assert.assertEquals(homepage.email.getText(), "", FIELD_SHOULD_BE_EMPTY);
+		Assert.assertEquals(homepage.date.getText(), "", FIELD_SHOULD_BE_EMPTY);
+		Assert.assertEquals(homepage.name.getText(), "", FIELD_SHOULD_BE_EMPTY);
+		Assert.assertEquals(homepage.sexElement.getText(), messages.getString("HomePage.Sex.Default"),
+				"Wrong state of the dropbox");
+
+		Assert.assertEquals(homepage.getMood(Mood.Super).getAttribute("aria-checked"), "false",
+				CHECKBOX_SHOULD_BE_UNCHECKED);
+		Assert.assertEquals(homepage.getMood(Mood.Good).getAttribute("aria-checked"), "false",
+				CHECKBOX_SHOULD_BE_UNCHECKED);
+		Assert.assertEquals(homepage.getMood(Mood.Normal).getAttribute("aria-checked"), "false",
+				CHECKBOX_SHOULD_BE_UNCHECKED);
+		Assert.assertEquals(homepage.getMood(Mood.Satisfactorily).getAttribute("aria-checked"), "false",
+				CHECKBOX_SHOULD_BE_UNCHECKED);
+		Assert.assertEquals(homepage.getMood(Mood.Bad).getAttribute("aria-checked"), "false",
+				CHECKBOX_SHOULD_BE_UNCHECKED);
+		Assert.assertEquals(homepage.getMood(Mood.Other).getAttribute("aria-checked"), "false",
+				CHECKBOX_SHOULD_BE_UNCHECKED);
+	}
+
+	// TODO check language
 
 	private void fillForm(FormData data) {
 		homepage.email.sendKeys(data.getEmail());
