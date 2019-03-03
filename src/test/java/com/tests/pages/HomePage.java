@@ -20,6 +20,14 @@ public class HomePage extends Page {
 				.findElement(By.xpath("//div[text()='" + TestNgTestBase.messages.getString("HomePage.Title") + "']"));
 	}
 
+	@FindBy(className = "freebirdFormviewerViewHeaderDescription")
+	@CacheLookup
+	public WebElement form;
+
+	@FindBy(className = "freebirdFormviewerViewHeaderRequiredLegend")
+	@CacheLookup
+	public WebElement required;
+
 	@FindBy(xpath = "//input[@type='email']")
 	@CacheLookup
 	public WebElement email;
