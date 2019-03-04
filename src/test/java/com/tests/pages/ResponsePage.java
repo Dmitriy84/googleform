@@ -14,4 +14,8 @@ public class ResponsePage extends Page {
 	@FindBy(className = "freebirdFormviewerViewResponseConfirmationMessage")
 	@CacheLookup
 	public WebElement confirmation;
+
+	@FindBy(xpath = "//div[@class='freebirdFormviewerViewResponseLinksContainer']")
+	@CacheLookup
+	public WebElement nextForm;
 }

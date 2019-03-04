@@ -14,8 +14,8 @@ import com.tests.pages.ResponsePage;
 import com.tests.utils.DataFactory;
 import com.tests.utils.StringUtils;
 
-// TODO describe bugs
 // TODO split to functional and non-functional test classes
+// TODO create test case for unlimited text input for other mood
 public class SampleTestNgTest extends TestNgTestBase {
 	private static final String CHECKBOX_SHOULD_BE_UNCHECKED = "Checkbox should be unchecked";
 	private static final String FIELD_SHOULD_BE_EMPTY = "Field should be empty";
@@ -150,9 +150,16 @@ public class SampleTestNgTest extends TestNgTestBase {
 	public void testHappyPath() {
 		fillForm(DataFactory.getCommon().setMoodSuper(true).setMoodBad(true));
 		homepage.getSubmit().click();
-		String message = PageFactory.initElements(driver, ResponsePage.class).confirmation.getText();
+		
+		ResponsePage responsePage = PageFactory.initElements(driver, ResponsePage.class);
+		String message = responsePage.confirmation.getText();
 		Assert.assertEquals(message, messages.getString("ResponsePage.ConfirmationMessage"),
 				"Unexpected confirmation message");
+		Assert.assertEquals(responsePage.nextForm.getText(), messages.getString("ResponsePage.NextForm"),
+				"Unexpected next form label text");
+		responsePage.nextForm.click();
+		
+		Assert.assertEquals(homepage.form.getText(), messages.getString("HomePage.FormName.Label"), "Wrong form name");
 	}
 
 	@Test
