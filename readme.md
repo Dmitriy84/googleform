@@ -1,16 +1,17 @@
-#RECOMENDATIONS for application improvement
+# RECOMENDATIONS for application improvement
  - application should use one language for all labels, text, tips. etc
  - - Right spelling could be found for Ukrainian and Russian languages could be found in MessagesBundle_ua.properties and MessagesBundle_ru.properties correspondingly
 
  
- #NOTES for tests
+# NOTES for tests
  - a lot of tests are failed because of uses many languages like ua and ru
  - after will receive fixes for languages issues class TestNgTestBase should be modified
  		<<<public static final ResourceBundle messages = ResourceBundle.getBundle("MessagesBundle", new UTF8Control("ua"));>>> correspondingly to default language
  - choosing locale should be moved to application.properties in the future
  - not all bugs are covered by automation tests because some of expected results should be confirmed
+
  
- #BUGS
+# BUGS
   - Date verification is absent
  	Description: The user could specify any date which is far away in the past from now as well as in the future
  	Actual:      no date verification
@@ -32,6 +33,10 @@
  	Actual:      input fields are not use whole free space on form to store data
  	Expected:    Input fields email and name use whole free space on form to store data
  	Severity:    Minor
+
  	
- # OUT OF SCOPE
+# OUT OF SCOPE
   - performance testing of the application
+
+# Run test
+	mvn verify

@@ -13,6 +13,10 @@ import java.util.ResourceBundle.Control;
 public class UTF8Control extends Control {
 	private final Locale locale;
 
+	/**
+	 * Used for loading resources ***_<locale>.properties with UTF-8 encoding
+	 * @param locale locale abbreviation
+	 */
 	public UTF8Control(String locale) {
 		// TODO Auto-generated method stub
 		this.locale = new Locale(locale);
